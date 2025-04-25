@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FTB Tennessee</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>FTB Tennessee</h1>
+    <p class="mission">FTB Tennessee is dedicated to developing elite baseball players both on and off the field. Our mission is to prepare athletes for the next level with a focus on discipline, work ethic, and high-level competition while promoting character, teamwork, and long-term success.</p>
+  </header>
+
+  <section class="schedules">
+    <h2>Team Schedules</h2>
+    <div class="team">
+      <h3 onclick="toggle('team12')">FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
+      <ul id="team12" class="hidden">
+        <li>Apr 12–13: PG Nash-Vegas Super Regional NIT – Nashville, TN</li>
+        <li>Apr 26–27: PG Nashville Spring World Series – Nashville, TN</li>
+        <li>May 3–4: PG Deep South Elite Invitational – Hoover, AL</li>
+        <li>May 16–18: PG Nashville World Series Qualifier – Nashville, TN</li>
+        <li>May 30–Jun 1: PG TN Elite Championship – Nashville, TN</li>
+        <li>Jun 14–15: PG Nashville Summer Classic – Nashville, TN</li>
+      </ul>
+    </div>
+    <div class="team">
+      <h3 onclick="toggle('team13')">FTB Tennessee 13U — Marc Coronol</h3>
+      <ul id="team13" class="hidden">
+        <li>PG World Series Qualifier - 5/17-5/18: Nashville, TN</li>
+        <li>PG TN Elite Championship - 5/31 - 6/1: Nashville, TN</li>
+        <li>PG Tennessee State Championship - 6/7 - 6/8: Nashville, TN</li>
+        <li>Southeast Summer Showdown - 6/12 - 6/16: Atlanta, GA</li>
+        <li>PG BCS National Championship - 6/22 - 6/26: Nashville, TN</li>
+        <li>PG Super 25 National Championship - 6/28 - 7/1: Nashville, TN</li>
+        <li>PBR National Championship - 7/3 - 7/7: Emerson, GA</li>
+        <li>PG World Series - July 19 - 22: Nashville, TN</li>
+      </ul>
+    </div>
+    <!-- ... Add all other teams similarly ... -->
+  </section>
+
+  <section class="commitments">
+    <h2>College Commitments</h2>
+    <ul>
+      <li>Cayden King (2026) – Texas A&amp;M</li>
+      <li>Kael Barney (2026) – Oregon State</li>
+      <li>Max Riggs (2026) – Queen University</li>
+      <li>Jackson Goddard (2026) – Belmont</li>
+      <li>Wyatt Clatur (2026) – Duke</li>
+      <li>Hayden Waller (2026) – Arkansas Pine Bluff</li>
+      <li>Owen McMahan (2026) – Belmont</li>
+      <li>Connor Gray (2026) – Belmont</li>
+    </ul>
+  </section>
+
+  <section class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
+    <p>
+      Instagram: <a href="https://www.instagram.com/ftb_tennessee/">@ftb_tennessee</a><br>
+      Twitter: <a href="https://x.com/ftb_tennessee">@ftb_tennessee</a><br>
+      Facebook: <a href="https://www.facebook.com/FTBTennessee/">FTB Tennessee</a>
+    </p>
+  </section>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
