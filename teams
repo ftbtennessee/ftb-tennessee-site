@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View the team schedules for FTB Tennessee's elite travel baseball teams.">
+  <meta name="keywords" content="FTB Tennessee, team schedules, travel baseball, elite teams">
+  <meta name="author" content="FTB Tennessee">
+  <title>FTB Tennessee Teams</title>
+  <!-- Open Graph and Twitter Card Meta Tags -->
+  <meta property="og:title" content="FTB Tennessee Teams">
+  <meta property="og:description" content="View the team schedules for FTB Tennessee's elite travel baseball teams.">
+  <meta property="og:image" content="https://placehold.co/1200x600?text=FTB+Tennessee">
+  <meta property="og:url" content="https://ftbtennessee.github.io/teams.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FTB Tennessee Teams">
+  <meta name="twitter:description" content="View the team schedules for FTB Tennessee's elite travel baseball teams.">
+  <meta name="twitter:image" content="https://placehold.co/1200x600?text=FTB+Tennessee">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    :root {
+      --primary: #002D72;
+      --secondary: #D50032;
+      --accent: #32CD32;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --section-bg: #f5f5f5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.8;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+      background-color: white;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0 0 15px;
+    }
+
+    a { text-decoration: none; transition: all 0.3s ease; }
+
+    img { max-width: 100%; height: auto; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .top-bar {
+      background-color: var(--primary);
+      color: white;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .main-header {
+      background-color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container img {
+      width: 50px;
+      margin-right: 15px;
+      border-radius: 5px;
+    }
+
+    .logo-text h1 {
+      font-size: 36px;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .logo-text span { color: var(--primary); }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu li { margin-left: 35px; }
+
+    .nav-menu li a {
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-menu li a:hover,
+    .nav-menu li a[aria-current="page"] {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 30px;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        background-color: white;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        padding: 80px 20px 20px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .nav-menu.active {
+        display: flex;
+        transform: translateX(0);
+      }
+
+      .nav-menu li { margin: 15px 0; }
+
+      .nav-menu li a {
+        font-size: 18px;
+        padding: 15px 20px;
+        display: block;
+        border-radius: 8px;
+        background-color: var(--light);
+        color: var(--primary);
+      }
+
+      .nav-menu li a:hover,
+      .nav-menu li a[aria-current="page"] {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .mobile-menu-btn { display: block; }
+
+      .logo-text h1 { font-size: 28px; }
+
+      .logo-container img { width: 40px; }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 30px;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 60px 20px; }
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .section-title h2 {
+      font-size: 48px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 20px;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 5px;
+      background-color: var(--secondary);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .section-title h2 { font-size: 36px; }
+      .section-title { margin-bottom: 50px; }
+      .section-title h2::after { width: 80px; height: 4px; }
+    }
+
+    .teams-section {
+      background-color: white;
+      padding: 100px 0;
+    }
+
+    .teams-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .team-age-group { margin-bottom: 60px; }
+
+    .age-group-title {
+      background-color: var(--accent);
+      color: var(--primary);
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 28px;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+
+    .team {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .team:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .team-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 15px 15px 0 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .team-header:hover {
+      background-color: #003a8c;
+    }
+
+    .team-header h3 {
+      font-size: 22px;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+
+    .team-header i {
+      min-width: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .team-header[aria-expanded="true"] i {
+      transform: rotate(180deg);
+    }
+
+    @media (max-width: 768px) {
+      .teams-section { padding: 60px 0; }
+      .team-age-group { margin-bottom: 40px; }
+      .age-group-title { font-size: 24px; padding: 10px 20px; }
+      .team-header { padding: 15px 20px; }
+      .team-header h3 { font-size: 18px; max-width: 75%; }
+      .team-header i { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .team-header { padding: 12px 15px; }
+      .team-header h3 { font-size: 16px; max-width: 70%; }
+    }
+
+    .team-schedule {
+      padding: 0 30px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    }
+
+    .team-schedule.active {
+      padding: 30px;
+      max-height: 1000px;
+    }
+
+    .team-schedule ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .team-schedule li {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .team-schedule li {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 14px;
+      }
+
+      .team-schedule li .event-location { margin-top: 8px; }
+      .team-schedule.active { padding: 20px; }
+    }
+
+    .team-schedule li .event-date {
+      font-weight: 600;
+      color: var(--primary);
+      margin-right: 15px;
+    }
+
+    .team-schedule li .event-location {
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .team-schedule li:last-child { border-bottom: none; }
+
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 60px 0;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .footer-section h4 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: white;
+      font-size: 16px;
+      margin: 10px 0;
+      opacity: 0.8;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .footer-links a {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .footer-social .social-links {
+      justify-content: flex-start;
+    }
+
+    .footer-social .social-links a {
+      color: white;
+      font-size: 24px;
+    }
+
+    .footer-social .social-links a:hover {
+      color: var(--accent);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container { padding: 0 20px; gap: 30px; }
+      .footer-section h4 { font-size: 20px; }
+      .footer-section p, .footer-section a { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    Elite Travel Baseball
+  </div>
+
+  <header class="main-header" role="banner">
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="images/ftb-logo.png" alt="FTB Tennessee Logo" loading="lazy">
+        <div class="logo-text">
+          <h1>FTB <span>TENNESSEE</span></h1>
+        </div>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="teams.html" aria-current="page">Teams</a></li>
+          <li><a href="commitments.html">Commitments</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="teams-section" id="teams">
+    <div class="container">
+      <div class="section-title">
+        <h2>Team Schedules</h2>
+      </div>
+      <div class="teams-container">
+        <div class="team-age-group">
+          <h3 class="age-group-title">12U Teams</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team12')" aria-expanded="false" aria-controls="team12" tabindex="0" onkeydown="handleKeydown(event, 'team12')">
+              <h3>FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team12" role="region">
+              <ul>
+                <li><span class="event-date">Apr 12–13</span><span class="event-location">PG Nash-Vegas Super Regional NIT – Nashville, TN</span></li>
+                <li><span class="event-date">Apr 26–27</span><span class="event-location">PG Nashville Spring World Series – Nashville, TN</span></li>
+                <li><span class="event-date">May 3–4</span><span class="event-location">PG Deep South Elite Invitational – Hoover, AL</span></li>
+                <li><span class="event-date">May 16–18</span><span class="event-location">PG Nashville World Series Qualifier – Nashville, TN</span></li>
+                <li><span class="event-date">May 30–Jun 1</span><span class="event-location">PG Tennessee Elite Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 14–15</span><span class="event-location">PG Nashville Summer Classic – Nashville, TN</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="team-age-group">
+          <h3 class="age-group-title">13U Teams</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team13')" aria-expanded="false" aria-controls="team13" tabindex="0" onkeydown="handleKeydown(event, 'team13')">
+              <h3>FTB Tennessee 13U — Marc Coronel</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team13" role="region">
+              <ul>
+                <li><span class="event-date">May 17–18</span><span class="event-location">PG World Series Qualifier – Nashville, TN</span></li>
+                <li><span class="event-date">May 31–Jun 1</span><span class="event-location">PG TN Elite Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 7–8</span><span class="event-location">PG Tennessee State Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">Southeast Summer Showdown – Atlanta, GA</span></li>
+                <li><span class="event-date">Jun 22–26</span><span class="event-location">PG BCS National Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 28–Jul 1</span><span class="event-location">PG Super 25 National Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jul 3–7</span><span class="event-location">PBR National Championship – Emerson, GA</span></li>
+                <li><span class="event-date">Jul 19–22</span><span class="event-location">PG World Series – Nashville, TN</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="team-age-group">
+          <h3 class="age-group-title">14U Teams</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team14')" aria-expanded="false" aria-controls="team14" tabindex="0" onkeydown="handleKeydown(event, 'team14')">
+              <h3>FTB Tennessee 14U — Paxton Hughes / Jeren Kendall</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team14" role="region">
+              <ul>
+                <li><span class="event-date">May 22–25</span><span class="event-location">PG Memorial Day Classic – Nashville, TN</span></li>
+                <li><span class="event-date">May 31–Jun 1</span><span class="event-location">PG TN Elite Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 7–8</span><span class="event-location">PG Tennessee State Championship – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 21–28</span><span class="event-location">PG WWBA – Hoover, AL</span></li>
+                <li><span class="event-date">Jul 9–13</span><span class="event-location">Pastime National Championship – Louisville, KY</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="team-age-group">
+          <h3 class="age-group-title">2028 Teams (15U)</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team2028w')" aria-expanded="false" aria-controls="team2028w Low tabindex="0" onkeydown="handleKeydown(event, 'team2028w')">
+              <h3>FTB Tennessee 2028 Wilson — Justin Wilson / Shaine McNeely</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team2028w" role="region">
+              <ul>
+                <li><span class="event-date">May 24–27</span><span class="event-location">PBR State Games – Emerson, GA</span></li>
+                <li><span class="event-date">May 29–Jun 2</span><span class="event-location">PG Hoover Invite – Hoover, AL</span></li>
+                <li><span class="event-date">Jun 5–9</span><span class="event-location">PG Beast of East – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 29–Jul 3</span><span class="event-location">USA Cary – Cary, NC</span></li>
+                <li><span class="event-date">Jul 5–9</span><span class="event-location">PG National Elite – Hoover, AL</span></li>
+                <li><span class="event-date">Jul 17–24</span><span class="event-location">WWBA – Marietta, GA</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team2028m')" aria-expanded="false" aria-controls="team2028m" tabindex="0" onkeydown="handleKeydown(event, 'team2028m')">
+              <h3>FTB Tennessee 2028 Maher — Aaron Maher / Tanner Langley</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team2028m" role="region">
+              <ul>
+                <li><span class="event-date">May 29–Jun 1</span><span class="event-location">15U Nashville Classic – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 5–8</span><span class="event-location">2D Nashville Opener – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 26–29</span><span class="event-location">Cincy Flames – Cincinnati, OH</span></li>
+                <li><span class="event-date">Jul 5–9</span><span class="event-location">PG National Elite – Hoover, AL</span></li>
+                <li><span class="event-date">Jul 9–13</span><span class="event-location">Nashville 2D World Series – Nashville, TN</span></li>
+                <li><span class="event-date">Jul 17–24</span><span class="event-location">WWBA – Atlanta, GA</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="team-age-group">
+          <h3 class="age-group-title">2027 Teams (16U)</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team2027h')" aria-expanded="false" aria-controls="team2027h" tabindex="0" onkeydown="handleKeydown(event, 'team2027h')">
+              <h3>FTB Tennessee 2027 Hendrix — Chris Hendrix / Russell Britton</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team2027h" role="region">
+              <ul>
+                <li><span class="event-date">May 24–27</span><span class="event-location">FTB Kick Off – Nashville, TN</span></li>
+                <li><span class="event-date">May 29–Jun 2</span><span class="event-location">Music City Slam – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 5–9</span><span class="event-location">PG Beast of East – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 19–23</span><span class="event-location">PG Southeast Select – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 26–Jul 2</span><span class="event-location">PBR Nat Champ – Emerson, GA</span></li>
+                <li><span class="event-date">Jul 6–13</span><span class="event-location">WWBA – Marietta, GA</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team2027g')" aria-expanded="false" aria-controls="team2027g" tabindex="0" onkeydown="handleKeydown(event, 'team2027g')">
+              <h3>FTB Tennessee 2027 Gray — Steve Gray / Eric Hardy</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team2027g" role="region">
+              <ul>
+                <li><span class="event-date">May 29–Jun 2</span><span class="event-location">Music City Slam – Nashville, TN</span></li>
+                <li><span class="event-date">Jun 5–9</span><span class="event-location">PG Beast of East – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 19–23</span><span class="event-location">PG Southeast Select – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 26–Jul 2</span><span class="event-location">PBR Nat Champ – Emerson, GA</span></li>
+                <li><span class="event-date">Jul 6–13</span><span class="event-location">WWBA – Marietta, GA</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="team-age-group">
+          <h3 class="age-group-title">2026 Teams</h3>
+          <div class="team">
+            <div class="team-header" onclick="toggleSchedule('team2026')" aria-expanded="false" aria-controls="team2026" tabindex="0" onkeydown="handleKeydown(event, 'team2026')">
+              <h3>FTB Tennessee 2026 — Will Haynie / Brandon Turner</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="team-schedule" id="team2026" role="region">
+              <ul>
+                <li><span class="event-date">May 29–Jun 2</span><span class="event-location">PG Hoover Invite – Hoover, AL</span></li>
+                <li><span class="event-date">Jun 5–9</span><span class="event-location">PG Beast of East – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 19–23</span><span class="event-location">PG Southeast Select – Marietta, GA</span></li>
+                <li><span class="event-date">Jun 26–Jul 2</span><span class="event-location">PBR Nat Champ – Emerson, GA</span></li>
+                <li><span class="event-date">Jul 13–20</span><span class="event-location">WWBA – Marietta, GA</span></li>
+                <li><span class="event-date">Jul 22–26</span><span class="event-location">PG Elite Championship – Sanford, FL</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>FTB Tennessee</h4>
+        <p>Elite Travel Baseball</p>
+        <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="teams.html">Teams</a>
+          <a href="commitments.html">Commitments</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-section footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/ftb_tennessee/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/ftb_tennessee" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/FTBTennessee/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 FTB Tennessee. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const navMenu = document.getElementById('navMenu');
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      navMenu.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', !isExpanded);
+    }
+
+    function toggleSchedule(teamId) {
+      const schedule = document.getElementById(teamId);
+      const header = schedule.previousElementSibling;
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      schedule.classList.toggle('active');
+      header.setAttribute('aria-expanded', !isExpanded);
+    }
+
+    function handleKeydown(event, teamId) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleSchedule(teamId);
+      }
+    }
+  </script>
+</body>
+</html>
