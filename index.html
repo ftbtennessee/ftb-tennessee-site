@@ -1,212 +1,410 @@
-The error message you provided indicates that JavaScript is disabled in the browser, which is preventing the toggle() function from working on the FTB Tennessee Team Schedules page. Since the page relies on JavaScript for the collapsible team schedules, this is likely causing the issue. Additionally, the message suggests that privacy-related browser extensions might interfere with the site’s functionality on x.com, but this seems unrelated to your local HTML file unless you’re hosting it on a domain with similar restrictions.
-Below, I’ll address the issue and provide a fixed version of your code with improvements to ensure JavaScript functionality, handle cases where JavaScript is disabled, and maintain the requested team organization. I’ll also include a fallback for users with JavaScript disabled and ensure the toggle functionality is robust.
-FIXES AND IMPROVEMENTS:
-	1	Ensure JavaScript is Loaded Properly:
-	◦	The toggle() function is already included in your code, but I’ll ensure it’s robust and placed correctly to avoid issues.
-	◦	I’ll add a 
-	2	Fallback for JavaScript-Disabled Browsers:
-	◦	If JavaScript is disabled, the schedules will be visible by default (not hidden) to ensure content accessibility.
-	◦	I’ll modify the CSS to make ul elements visible unless JavaScript explicitly hides them.
-	3	Maintain Team Organization:
-	◦	The team sections are already organized as requested: 12U, 13U, 14U, 2028 (15U), 2027 (16U), and 2026 (17U).
-	◦	I’ll ensure the structure remains clear and consistent.
-	4	Robust Toggle Function:
-	◦	I’ll enhance the toggle() function to handle edge cases and improve user experience (e.g., smooth transitions for the collapse/expand effect).
-	◦	I’ll add an indicator (e.g., an arrow) to show whether a team schedule is expanded or collapsed.
-	5	CSS Adjustments:
-	◦	I’ll adjust the .hidden class to use display: none with a smooth transition for better UX.
-	◦	I’ll ensure the schedules are visible by default and hidden only when JavaScript runs.
-	6	Accessibility:
-	◦	I’ll add ARIA attributes to improve accessibility for screen readers, especially for the collapsible sections.
-	◦	I’ll ensure the page is usable without JavaScript for accessibility compliance.
-	7	Testing for Privacy Extensions:
-	◦	The error message mentions privacy extensions causing issues on x.com. Since your code is a local HTML file, this is likely irrelevant unless you’re hosting it on a server with similar restrictions. I’ll ensure the code works in a standard browser environment.
-FIXED CODE
-Below is the updated HTML, CSS, and JavaScript code with the fixes and improvements:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTB Tennessee - Team Schedules</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #002D72; /* FTB Navy Blue */
+      --secondary: #D50032; /* FTB Red */
+      --accent: #FFC72C; /* FTB Yellow */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
 
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
 
-  
-  
-  
-  
-  
-  
+    h1, h2, h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
 
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
 
-  
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
 
-  
-    
-      TEAM SCHEDULES
-    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
 
-    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
 
-    
+    .teams-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .team-age-group {
+      margin-bottom: 40px;
+    }
+
+    .age-group-title {
+      background-color: var(--accent);
+      color: var(--primary);
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .team {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .team:hover {
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+
+    .team h3 {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      margin: 0;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .team h3::after {
+      content: '\f107'; /* Font Awesome down arrow */
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      transition: transform 0.3s;
+    }
+
+    .team h3[aria-expanded="true"]::after {
+      transform: rotate(180deg);
+    }
+
+    .schedule {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .schedule.expanded {
+      max-height: 1000px; /* Adjust based on content */
+      padding: 20px;
+    }
+
+    .no-js .schedule {
+      max-height: none;
+      padding: 20px;
+    }
+
+    li {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    .commitments {
+      background-color: var(--primary);
+      color: white;
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+
+    .commitments h2 {
+      color: white;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 10px;
+    }
+
+    .contact {
+      background-color: white;
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin-top: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .contact h2 {
+      color: var(--primary);
+      border-bottom: 3px solid var(--secondary);
+      padding-bottom: 10px;
+    }
+
+    .contact a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact a:hover {
+      color: var(--primary);
+    }
+
+    .noscript-message {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="no-js">
+  <script>
+    // Remove no-js class when JavaScript is enabled
+    document.body.classList.remove('no-js');
+  </script>
+
+  <section class="container" id="teams">
+    <div class="section-title">
+      <h2>TEAM SCHEDULES</h2>
+    </div>
+
+    <noscript>
+      <div class="noscript-message">
+        <p>JavaScript is disabled in your browser. Please enable JavaScript to use the interactive features of this page. Alternatively, all schedules are displayed below.</p>
+      </div>
+    </noscript>
+
+    <div class="teams-container">
+      <!-- 12U Teams -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">12U Teams</h3>
+        <div class="team">
+          <h3 onclick="toggle('team12')" aria-expanded="false" aria-controls="team12">FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
+          <ul id="team12" class="schedule">
+            <li>Apr 12–13: PG Nash-Vegas Super Regional NIT – Nashville, TN</li>
+            <li>Apr 26–27: PG Nashville Spring World Series – Nashville, TN</li>
+            <li>May 3–4: PG Deep South Elite Invitational – Hoover, AL</li>
+            <li>May 16–18: PG Nashville World Series Qualifier – Nashville, TN</li>
+            <li>May 30–Jun 1: PG Tennessee Elite Championship – Nashville, TN</   <li>Jun 14–15: PG Nashville Summer Classic – Nashville, TN</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 13U Teams -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">13U Teams</h3>
+        <div class="team">
+          <h3 onclick="toggle('team13')" aria-expanded="false" aria-controls="team13">FTB Tennessee 13U — Marc Coronel</h3>
+          <ul id="team13" class="schedule">
+            <li>May 17–18: PG World Series Qualifier – Nashville, TN</li>
+            <li>May 31–Jun 1: PG TN Elite Championship – Nashville, TN</li>
+            <li>Jun 7–8: PG Tennessee State Championship – Nashville, TN</li>
+            <li>Jun 12–16: Southeast Summer Showdown – Atlanta, GA</li>
+            <li>Jun 22–26: PG BCS National Championship – Nashville, TN</li>
+            <li>Jun 28–Jul 1: PG Super 25 National Championship – Nashville, TN</li>
+            <li>Jul 3–7: PBR National Championship – Emerson, GA</li>
+            <li>Jul 19–22: PG World Series – Nashville, TN</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 14U Teams -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">14U Teams</h3>
+        <div class="team">
+          <h3 onclick="toggle('team14')" aria-expanded="false" aria-controls="team14">FTB Tennessee 14U — Paxton Hughes / Jeren Kendall</h3>
+          <ul id="team14" class="schedule">
+            <li>May 22–25: PG Memorial Day Classic – Nashville, TN</li>
+            <li>May 31–Jun 1: PG TN Elite Championship – Nashville, TN</li>
+            <li>Jun 7–8: PG Tennessee State Championship – Nashville, TN</li>
+            <li>Jun 12–16: PG Summer Showdown – Marietta, GA</li>
+            <li>Jun 21–28: PG WWBA – Hoover, AL</li>
+            <li>Jul 9–13: Pastime National Championship – Louisville, KY</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2028 Teams (15U) -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">2028 Teams (15U)</h3>
+        <div class="team">
+          <h3 onclick="toggle('team2028w')" aria-expanded="false" aria-controls="team2028w">FTB Tennessee 2028 Wilson — Justin Wilson / Shaine McNeely</h3>
+          <ul id="team2028w" class="schedule">
+            <li>May 24–27: PBR State Games – Emerson, GA</li>
+            <li>May 29–Jun 2: PG Hoover Invite – Hoover, AL</li>
+            <li>Jun 5–9: PG Beast of East – Marietta, GA</li>
+            <li>Jun 12–16: PG Summer Showdown – Marietta, GA</li>
+            <li>Jun 29–Jul 3: USA Cary – Cary, NC</li>
+            <li>Jul 5–9: PG National Elite – Hoover, AL</li>
+            <li>Jul 17–24: WWBA – Marietta, GA</li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3 onclick="toggle('team2028m')" aria-expanded="false" aria-controls="team2028m">FTB Tennessee 2028 Maher — Aaron Maher / Tanner Langely</h3>
+          <ul id="team2028m" class="schedule">
+            <li>May 29–Jun 1: 15U Nashville Classic – Nashville, TN</li>
+            <li>Jun 5–8: 2D Nashville Opener – Nashville, TN</li>
+            <li>Jun 12–16: PG Summer Showdown – Marietta, GA</li>
+            <li>Jun 26–29: Cincy Flames – Cincinnati, OH</li>
+            <li>Jul 5–9: PG National Elite – Hoover, AL</li>
+            <li>Jul 9–13: Nashville 2D World Series – Nashville, TN</li>
+            <li>Jul 17–24: WWBA – Atlanta, GA</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2027 Teams (16U) -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">2027 Teams (16U)</h3>
+        <div class="team">
+          <h3 onclick="toggle('team2027h')" aria-expanded="false" aria-controls="team2027h">FTB Tennessee 2027 Hendrix — Chris Hendrix / Russell Britton</h3>
+          <ul id="team2027h" class="schedule">
+            <li>May 24–27: FTB Kick Off – Nashville, TN</li>
+            <li>May 29–Jun 2: Music City Slam – Nashville, TN</li>
+            <li>Jun 5–9: PG Beast of East – Marietta, GA</li>
+            <li>Jun 12–16: PG Summer Showdown – Marietta, GA</li>
+            <li>Jun 29–Jul 3: PG National Elite – Hoover, AL</li>
+            <li>Jul 6–13: WWBA – Atlanta, GA</li>
+            <li>Jul 17–21: PG World Series – Sanford, FL</li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3 onclick="toggle('team2027p')" aria-expanded="false" aria-controls="team2027p">FTB Tennessee 2027 Pettis — Jason Pettis</h3>
+          <ul id="team2027p" class="schedule">
+            <li>Jun 5–9: PG Beast of East – Marietta, GA</li>
+            <li>Jun 12–16: PG Summer Showdown – Marietta, GA</li>
+            <li>Jun 29–Jul 3: PG Nat Elite – Hoover, AL</li>
+            <li>Jul 6–13: WWBA – Atlanta, GA</li>
+            <li>Jul 17–21: PG World Series – Sanford, FL</li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3 onclick="toggle('team2027g')" aria-expanded="false" aria-controls="team2027g">FTB Tennessee 2027 Gant — Jason Gant / Derrick Wolfe</h3>
+          <ul id="team2027g" class="schedule">
+            <li>May 24–27: FTB Kick Off – Nashville, TN</li>
+            <li>May 29–Jun 2: Music City Summer Slam – Nashville, TN</li>
+            <li>Jun 5–8: Nashville 2D Opener – Nashville, TN</li>
+            <li>Jun 12–16: PG Southeast Summer Showdown – Marietta, GA</li>
+            <li>Jun 19–23: PG Southeast Select – Marietta, GA</li>
+            <li>Jun 26–Jul 2: PBR Nat Champ – Emerson, GA</li>
+            <li>Jul 6–13: WWBA – Marietta, GA</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2026 Teams (17U) -->
+      <div class="team-age-group">
+        <h3 class="age-group-title">2026 Teams (17U)</h3>
+        <div class="team">
+          <h3 onclick="toggle('team2026r')" aria-expanded="false" aria-controls="team2026r">FTB Tennessee 2026 Reynolds — Alex Reynolds / Max Bartlett</h3>
+          <ul id="team2026r" class="schedule">
+            <li>May 29–Jun 1: Music City Summer Slam – Nashville, TN</li>
+            <li>Jun 5–8: Nashville 2D Opener – Nashville, TN</li>
+            <li>Jun 12–16: PG Summer Showdown – Atlanta, GA</li>
+            <li>Jun 25–Jul 2: WWBA – Atlanta, GA</li>
+            <li>Jul 12–16: PG National Elite – Hoover, AL</li>
+            <li>Jul 24–28: PG BCS National Championship – Fort Myers, FL</li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3 onclick="toggle('team2026h')" aria-expanded="false" aria-controls="team2026h">FTB Tennessee 2026 Haynie — Will Haynie / Jordan Rogers</h3>
+          <ul id="team2026h" class="schedule">
+            <li>May 24–26: FTB Kick Off Series – Nashville, TN</li>
+            <li>May 29–Jun 1: Music City Summer Slam – Nashville, TN</li>
+            <li>Jun 5–9: PG Beast Of East – Atlanta, GA</li>
+            <li>Jun 12–16: PG Summer Showdown – Atlanta, GA</li>
+            <li>Jun 25–Jul 2: WWBA – Atlanta, GA</li>
+            <li>Jul 12–16: PG National Elite – Hoover, AL</li>
+            <li>Jul 24–29: UBC Midwest – Chicago, IL (Ghost National)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- College Commitments -->
+  <section class="container">
+    <div class="commitments">
+      <h2>College Commitments</h2>
+      <ul>
+        <li>Cayden King (2026) – Texas A&M</li>
+        <li>Kael Barney (2026) – Oregon State</li>
+        <li>Max Riggs (2026) – Queen University</li>
+        <li>Jackson Goddard (2026) – Belmont</li>
+        <li>Wyatt Clatur (2026) – Duke</li>
+        <li>Hayden Waller (2026) – Arkansas Pine Bluff</li>
+        <li>Owen McMahan (2026) – Belmont</li>
+        <li>Connor Gray (2026) – Belmont</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="container">
+    <div class="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
+      <p>
+        Instagram: <a href="https://www.instagram.com/ftb_tennessee/">@ftb_tennessee</a><br>
+        Twitter: <a href="https://x.com/ftb_tennessee">@ftb_tennessee</a><br>
+        Facebook: <a href="https://www.facebook.com/FTBTennessee/">FTB Tennessee</a>
+      </p>
+    </div>
+  </section>
+
+  <script>
+    function toggle(id) {
+      const element = document.getElementById(id);
+      const header = element.previousElementSibling;
+      const isExpanded = element.classList.contains('expanded');
       
-        
-12U TEAMS
-        
-          FTB TENNESSEE 12U — RYAN RIDLER / DERRICK WOLFE
-          
-            
-Apr 12–13: PG Nash-Vegas Super Regional NIT – Nashville, TN
-            
-Apr 26–27: PG Nashville Spring World Series – Nashville, TN
-            
-May 3–4: PG Deep South Elite Invitational – Hoover, AL
-            
-May 16–18: PG Nashville World Series Qualifier – Nashville, TN
-            
-May 30–Jun 1: PG Tennessee Elite Championship – Nashville, TN
-            
-Jun 14–15: PG Nashville Summer Classic – Nashville, TN
-          
-        
-      
+      element.classList.toggle('expanded');
+      header.setAttribute('aria-expanded', !isExpanded);
+    }
 
-      
-        
-13U TEAMS
-        
-          FTB TENNESSEE 13U — MARC CORONEL
-          
-            
-May 17–18: PG World Series Qualifier – Nashville, TN
-            
-May 31–Jun 1: PG TN Elite Championship – Nashville, TN
-            
-Jun 7–8: PG Tennessee State Championship – Nashville, TN
-            
-Jun 12–16: Southeast Summer Showdown – Atlanta, GA
-            
-Jun 22–26: PG BCS National Championship – Nashville, TN
-            
-Jun 28–Jul 1: PG Super 25 National Championship – Nashville, TN
-            
-Jul 3–7: PBR National Championship – Emerson, GA
-            
-Jul 19–22: PG World Series – Nashville, TN
-          
-        
-      
-
-      
-        
-14U TEAMS
-        
-          FTB TENNESSEE 14U — PAXTON HUGHES / JEREN KENDALL
-          
-            
-May 22–25: PG Memorial Day Classic – Nashville, TN
-            
-May 31–Jun 1: PG TN Elite Championship – Nashville, TN
-            
-Jun 7–8: PG Tennessee State Championship – Nashville, TN
-            
-Jun 12–16: PG Summer Showdown – Marietta, GA
-            
-Jun 21–28: PG WWBA – Hoover, AL
-            
-Jul 9–13: Pastime National Championship – Louisville, KY
-          
-        
-      
-
-      
-        
-2028 TEAMS (15U)
-        
-          FTB TENNESSEE 2028 WILSON — JUSTIN WILSON / SHAINE MCNEELY
-          
-            
-May 24–27: PBR State Games – Emerson, GA
-            
-May 29–Jun 2: PG Hoover Invite – Hoover, AL
-            
-Jun 5–9: PG Beast of East – Marietta, GA
-            
-Jun 12–16: PG Summer Showdown – Marietta, GA
-            
-Jun 29–Jul 3: USA Cary – Cary, NC
-            
-Jul 5–9: PG National Elite – Hoover, AL
-            
-Jul 17–24: WWBA – Marietta, GA
-          
-        
-        
-          FTB TENNESSEE 2028 MAHER — AARON MAHER / TANNER LANGELY
-          
-            
-May 29–Jun 1: 15U Nashville Classic – Nashville, TN
-            
-Jun 5–8: 2D Nashville Opener – Nashville, TN
-            
-Jun 12–16: PG Summer Showdown – Marietta, GA
-            
-Jun 26–29: Cincy Flames – Cincinnati, OH
-            
-Jul 5–9: PG National Elite – Hoover, AL
-            
-Jul 9–13: Nashville 2D World Series – Nashville, TN
-            
-Jul 17–24: WWBA – Atlanta, GA
-          
-        
-      
-
-      
-        
-2027 TEAMS (16U)
-        
-          FTB TENNESSEE 2027 HENDRIX — CHRIS HENDRIX / RUSSELL BRITTON
-          
-            
-May 24–27: FTB Kick Off – Nashville, TN
-            
-May 29–Jun 2: Music City Slam – Nashville, TN
-            
-Jun 5–9: PG Beast of East – Marietta, GA
-            
-Jun 12–16: PG Summer Showdown – Marietta, GA
-            
-Jun 29–Jul 3: PG National Elite – Hoover, AL
-            
-Jul 6–13: WWBA – Atlanta, GA
-            
-Jul 17–21: PG World Series – Sanford, FL
-          
-        
-        
-          FTB TENNESSEE 2027 PETTIS — JASON PETTIS
-          
-            
-Jun 5–9: PG Beast of East – Marietta, GA
-            
-Jun 12–16: PG Summer Showdown – Marietta, GA
-            
-Jun 29–Jul 3: PG Nat Elite – Hoover, AL
-            
-Jul 6–13: WWBA – Atlanta, GA
-            
-Jul 17–21: PG World Series – Sanford, FL
-          
-        
-        
-          FTB TENNESSEE 2027 GANT — JASON GANT / DERRICK WOLFE
-          
-		            
-		May 24–27: FTB Kick Off – Nashville, TN
-		            
-		May 29–Jun 2: Music City Summer Slam – Nashville, TN
-		            
-		Jun 5–8: Nashville 2D Opener – Nashville, TN
-		            
-		Jun 12–16: PG Southeast Summer Showdown – Marietta, GA
-		            
-		Jun 19–23: PG Southeast Select – Marietta, GA
-		            
-		Jun 26–Jul 2: PBR Nat Champ – Emerson, GA
-		            
-		Jul
+    // Initialize: hide schedules if JavaScript is enabled
+    document.addEventListener('DOMContentLoaded', () => {
+      const schedules = document.querySelectorAll('.schedule');
+      schedules.forEach(schedule => {
+        schedule.classList.remove('expanded');
+        schedule.previousElementSibling.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
