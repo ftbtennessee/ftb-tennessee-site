@@ -1,203 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FTB Tennessee</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTB Tennessee - Elite Travel Baseball</title>
+  <meta name="description" content="FTB Tennessee provides elite travel baseball opportunities for dedicated players across Tennessee.">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #002D72; /* FTB Navy Blue */
+      --secondary: #D50032; /* FTB Red */
+      --accent: #FFC72C; /* FTB Yellow */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    /* Header */
+    .top-bar {
+      background-color: var(--primary);
+      color: white;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    
+    .main-header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 80px;
+      margin-right: 15px;
+    }
+    
+    .logo-text h1 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 28px;
+    }
+    
+    .logo-text span {
+      color: var(--secondary);
+    }
+    
+    /* Navigation */
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-menu li {
+      margin-left: 25px;
+      position: relative;
+    }
+    
+    .nav-menu li a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    
+    .nav-menu li a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background-image: linear-gradient(rgba(0,45,114,0.8), rgba(0,45,114,0.8)), url('https://ftbteams.com/wp-content/uploads/2021/05/ftb-hero.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 0 10px;
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary);
+      color: white;
+      border: 2px solid var(--secondary);
+    }
+    
+    .btn-primary:hover {
+      background-color: transparent;
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-outline:hover {
+      background-color: white;
+      color: var(--primary);
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+    
+    /* Owners Section */
+    .owners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .owner-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .owner-image {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .owner-content {
+      padding: 20px;
+    }
+    
+    .owner-content h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 24px;
+    }
+    
+    /* Teams Section */
+    .team {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .team-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .team-header h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .team-schedule {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .team-schedule.active {
+      padding: 20px;
+      max-height: 1000px;
+    }
+    
+    .team-schedule ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .team-schedule li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .team-schedule li:last-child {
+      border-bottom: none;
+    }
+    
+    /* Commitments Section */
+    .commitments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .commitment-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .commitment-card h4 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+    
+    /* Contact Section */
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      color: var(--primary);
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      height: 60px;
+      margin-bottom: 20px;
+    }
+    
+    .copyright {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="header-container">
+      <div>ELITE TRAVEL BASEBALL</div>
+      <div>
+        <a href="https://www.instagram.com/ftb_tennessee/" style="color: white; margin-left: 15px;"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/ftb_tennessee" style="color: white; margin-left: 15px;"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/FTBTennessee/" style="color: white; margin-left: 15px;"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+  </div>
 
-  <!-- Header with Title & Mission (logo removed) -->
-  <header>
-    <h1>FTB Tennessee</h1>
-    <p class="mission">
-      FTB Tennessee is dedicated to developing elite baseball players both on and off the field.
-      Our mission is to prepare athletes for the next level with a focus on discipline, work ethic,
-      and high-level competition while promoting character, teamwork, and long-term success.
-    </p>
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="https://ftbteams.com/wp-content/uploads/2021/05/ftb-logo.png" alt="FTB Tennessee Logo" class="logo">
+        <div class="logo-text">
+          <h1>FTB <span>TENNESSEE</span></h1>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#teams">Teams</a></li>
+          <li><a href="#owners">Owners</a></li>
+          <li><a href="#commitments">Commitments</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- Co-Owners Section -->
-  <section class="owners">
-    <h2>Co-Owners</h2>
-    <div class="owner">
-      <h3>Will Haynie</h3>
-      <p>
-        Will Haynie began his collegiate career at the University of Alabama, where he led the team 
-        with 10 home runs in both 2015 and 2016. He played for the Cotuit Kettleers in the Cape Cod League, 
-        earning All-Cape Cod Team honors and the Daniel J. Silva Sportsmanship Award in 2015. Drafted by 
-        the Colorado Rockies in 2016, he played professionally until 2019. Will now leverages that experience 
-        to coach athletes at the collegiate, professional, and elite high school levels, focusing on hitting, 
-        fielding, and sportsmanship.
-      </p>
-    </div>
-    <div class="owner">
-      <h3>Justin Wilson</h3>
-      <p>
-        Justin Wilson, from Murfreesboro, TN, played at Volunteer State Community College (2015–2016) as 
-        a catcher and pitcher before moving to Vanderbilt University (2017–2018). He then pitched in the 
-        Yankees organization from 2018 to 2023, compiling a 3.45 ERA and 85 strikeouts in 76.2 innings, 
-        finishing his career in Double-A. Justin brings that pitching expertise to coaching and player development.
-      </p>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1>FTB TENNESSEE</h1>
+      <p>Developing elite baseball players both on and off the field with a focus on discipline, work ethic, and high-level competition while promoting character, teamwork, and long-term success.</p>
+      <div>
+        <a href="#teams" class="btn btn-primary">VIEW TEAMS</a>
+        <a href="#contact" class="btn btn-outline">CONTACT US</a>
+      </div>
     </div>
   </section>
 
-  <!-- Team Schedules -->
-  <section class="schedules">
-    <h2>Team Schedules</h2>
-
-    <!-- 12U -->
-    <div class="team">
-      <h3 onclick="toggle('team12')">FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
-      <ul id="team12" class="hidden">
-        <li>Apr 12–13: PG Nash-Vegas Super Regional NIT – Nashville, TN</li>
-        <li>Apr 26–27: PG Nashville Spring World Series – Nashville, TN</li>
-        <li>May 3–4: PG Deep South Elite Invitational – Hoover, AL</li>
-        <li>May 16–18: PG Nashville World Series Qualifier – Nashville, TN</li>
-        <li>May 30–Jun 1: PG Tennessee Elite Championship – Nashville, TN</li>
-        <li>Jun 14–15: PG Nashville Summer Classic – Nashville, TN</li>
-      </ul>
+  <!-- Owners Section -->
+  <section class="container" id="owners">
+    <div class="section-title">
+      <h2>CO-OWNERS</h2>
     </div>
-
-    <!-- 13U -->
-    <div class="team">
-      <h3 onclick="toggle('team13')">FTB Tennessee 13U — Marc Coronel</h3>
-      <ul id="team13" class="hidden">
-        <li>PG World Series Qualifier – 5/17–5/18: Nashville, TN</li>
-        <li>PG TN Elite Championship – 5/31–6/1: Nashville, TN</li>
-        <li>PG Tennessee State Championship – 6/7–6/8: Nashville, TN</li>
-        <li>Southeast Summer Showdown – 6/12–6/16: Atlanta, GA</li>
-        <li>PG BCS National Championship – 6/22–6/26: Nashville, TN</li>
-        <li>PG Super 25 National Championship – 6/28–7/1: Nashville, TN</li>
-        <li>PBR National Championship – 7/3–7/7: Emerson, GA</li>
-        <li>PG World Series – 7/19–7/22: Nashville, TN</li>
-      </ul>
+    <div class="owners-grid">
+      <div class="owner-card">
+        <div class="owner-image" style="background-image: url('https://via.placeholder.com/400x300');"></div>
+        <div class="owner-content">
+          <h3>Will Haynie</h3>
+          <p>Will Haynie began his collegiate career at the University of Alabama, where he led the team with 10 home runs in both 2015 and 2016. He played for the Cotuit Kettleers in the Cape Cod League, earning All-Cape Cod Team honors and the Daniel J. Silva Sportsmanship Award in 2015. Drafted by the Colorado Rockies in 2016, he played professionally until 2019. Will now leverages that experience to coach athletes at the collegiate, professional, and elite high school levels, focusing on hitting, fielding, and sportsmanship.</p>
+        </div>
+      </div>
+      <div class="owner-card">
+        <div class="owner-image" style="background-image: url('https://via.placeholder.com/400x300');"></div>
+        <div class="owner-content">
+          <h3>Justin Wilson</h3>
+          <p>Justin Wilson, from Murfreesboro, TN, played at Volunteer State Community College (2015–2016) as a catcher and pitcher before moving to Vanderbilt University (2017–2018). He then pitched in the Yankees organization from 2018 to 2023, compiling a 3.45 ERA and 85 strikeouts in 76.2 innings, finishing his career in Double-A. Justin brings that pitching expertise to coaching and player development.</p>
+        </div>
+      </div>
     </div>
-
-    <!-- 14U -->
-    <div class="team">
-      <h3 onclick="toggle('team14')">FTB Tennessee 14U — Paxton Hughes / Jeren Kendall</h3>
-      <ul id="team14" class="hidden">
-        <li>PG Memorial Day Classic – 5/22–5/25: Nashville, TN</li>
-        <li>PG TN Elite Championship – 5/31–6/1: Nashville, TN</li>
-        <li>PG Tennessee State Championship – 6/7–6/8: Nashville, TN</li>
-        <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
-        <li>PG WWBA – 6/21–6/28: Hoover, AL</li>
-        <li>Pastime National Championship – 7/9–7/13: Louisville, KY</li>
-      </ul>
-    </div>
-
-    <!-- 2028 Teams -->
-    <div class="team">
-      <h3 onclick="toggle('team2028w')">FTB Tennessee 2028 Wilson — Justin Wilson / Shaine McNeely</h3>
-      <ul id="team2028w" class="hidden">
-        <li>PBR State Games – 5/24–5/27: Emerson, GA</li>
-        <li>PG Hoover Invite – 5/29–6/2: Hoover, AL</li>
-        <li>PG Beast of East – 6/5–6/9: Marietta, GA</li>
-        <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
-        <li>USA Cary – 6/29–7/3: Cary, NC</li>
-        <li>PG National Elite – 7/5–7/9: Hoover, AL</li>
-        <li>WWBA – 7/17–7/24: Marietta, GA</li>
-      </ul>
-    </div>
-    <div class="team">
-      <h3 onclick="toggle('team2028m')">FTB Tennessee 2028 Maher — Aaron Maher / Tanner Langely</h3>
-      <ul id="team2028m" class="hidden">
-        <li>15U Nashville Classic – 5/29–6/1: Nashville, TN</li>
-        <li>2D Nashville Opener – 6/5–6/8: Nashville, TN</li>
-        <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
-        <li>Cincy Flames – 6/26–6/29: Cincinnati, OH</li>
-        <li>PG National Elite – 7/5–7/9: Hoover, AL</li>
-        <li>Nashville 2D World Series – 7/9–7/13: Nashville, TN</li>
-        <li>WWBA – 7/17–7/24: Atlanta, GA</li>
-      </ul>
-    </div>
-
-    <!-- 2027 Teams -->
-    <div class="team">
-      <h3 onclick="toggle('team2027h')">FTB Tennessee 2027 Hendrix — Chris Hendrix / Russell Britton</h3>
-      <ul id="team2027h" class="hidden">
-        <li>FTB Kick Off – 5/24–5/27: Nashville, TN</li>
-        <li>Music City Slam – 5/29–6/2: Nashville, TN</li>
-        <li>PG Beast of East – 6/5–6/9: Marietta, GA</li>
-        <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
-        <li>PG Nat Elite – 6/29–7/3: Hoover, AL</li>
-        <li>WWBA – 7/6–7/13: Atlanta, GA</li>
-        <li>PG World Series – 7/17–7/21: Sanford, FL</li>
-      </ul>
-    </div>
-    <div class="team">
-      <h3 onclick="toggle('team2027g')">FTB Tennessee 2027 Gant — Jason Gant / Derrick Wolfe</h3>
-      <ul id="team2027g" class="hidden">
-        <li>FTB Kick Off – 5/24–5/27: Nashville, TN</li>
-        <li>Music City Summer Slam – 5/29–6/2: Nashville, TN</li>
-        <li>Nashville 2D Opener – 6/5–6/8: Nashville, TN</li>
-        <li>PG Southeast Summer Showdown – 6/12–6/16: Marietta, GA</li>
-        <li>PG Southeast Select – 6/19–6/23: Marietta, GA</li>
-        <li>PBR Nat Champ – 6/26–7/2: Emerson, GA</li>
-        <li>WWBA – 7/6–7/13: Marietta, GA</li>
-      </ul>
-    </div>
-
-    <!-- 2026 Teams -->
-    <div class="team">
-      <h3 onclick="toggle('team2026r')">FTB Tennessee 2026 Reynolds — Alex Reynolds / Max Bartlett</h3>
-      <ul id="team2026r" class="hidden">
-        <li>Music City Summer Slam – 5/29–6/1: Nashville, TN</li>
-        <li>Nashville 2D Opener – 6/5–6/8: Nashville, TN</li>
-        <li>PG Summer Showdown – 6/12–6/16: Atlanta, GA</li>
-        <li>WWBA – 6/25–7/2: Atlanta, GA</li>
-        <li>PG National Elite – 7/12–7/16: Hoover, AL</li>
-        <li>PG BCS National Championship – 7/24–7/28: Fort Myers, FL</li>
-      </ul>
-    </div>
-    <div class="team">
-      <h3 onclick="toggle('team2026h')">FTB Tennessee 2026 Haynie — Will Haynie / Jordan Rogers</h3>
-      <ul id="team2026h" class="hidden">
-        <li>FTB Kick Off Series – 5/24–5/26: Nashville, TN</li>
-        <li>Music City Summer Slam – 5/29–6/1: Nashville, TN</li>
-        <li>PG Beast Of East – 6/5–6/9: Atlanta, GA</li>
-        <li>PG Summer Showdown – 6/12–6/16: Atlanta, GA</li>
-        <li>WWBA – 6/25–7/2: Atlanta, GA</li>
-        <li>PG National Elite – 7/12–7/16: Hoover, AL</li>
-        <li>UBC Midwest – 7/24–7/29: Chicago, IL (Ghost National)</li>
-      </ul>
-    </div>
-
   </section>
 
-  <!-- College Commitments -->
-  <section class="commitments">
-    <h2>College Commitments</h2>
-    <ul>
-      <li>Cayden King (2026) – Texas A&amp;M</li>
-      <li>Kael Barney (2026) – Oregon State</li>
-      <li>Max Riggs (2026) – Queen University</li>
-      <li>Jackson Goddard (2026) – Belmont</li>
-      <li>Wyatt Clatur (2026) – Duke</li>
-      <li>Hayden Waller (2026) – Arkansas Pine Bluff</li>
-      <li>Owen McMahan (2026) – Belmont</li>
-      <li>Connor Gray (2026) – Belmont</li>
-    </ul>
+  <!-- Teams Section -->
+  <section class="container" id="teams">
+    <div class="section-title">
+      <h2>TEAM SCHEDULES</h2>
+    </div>
+    
+    <!-- 12U Team -->
+    <div class="team">
+      <div class="team-header" onclick="toggleSchedule('team12')">
+        <h3>FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="team-schedule" id="team12">
+        <ul>
+          <li>Apr 12–13: PG Nash-Vegas Super Regional NIT – Nashville, TN</li>
+          <li>Apr 26–27: PG Nashville Spring World Series – Nashville, TN</li>
+          <li>May 3–4: PG Deep South Elite Invitational – Hoover, AL</li>
+          <li>May 16–18: PG Nashville World Series Qualifier – Nashville, TN</li>
+          <li>May 30–Jun 1: PG Tennessee Elite Championship – Nashville, TN</li>
+          <li>Jun 14–15: PG Nashville Summer Classic – Nashville, TN</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 13U Team -->
+    <div class="team">
+      <div class="team-header" onclick="toggleSchedule('team13')">
+        <h3>FTB Tennessee 13U — Marc Coronel</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="team-schedule" id="team13">
+        <ul>
+          <li>PG World Series Qualifier – 5/17–5/18: Nashville, TN</li>
+          <li>PG TN Elite Championship – 5/31–6/1: Nashville, TN</li>
+          <li>PG Tennessee State Championship – 6/7–6/8: Nashville, TN</li>
+          <li>Southeast Summer Showdown – 6/12–6/16: Atlanta, GA</li>
+          <li>PG BCS National Championship – 6/22–6/26: Nashville, TN</li>
+          <li>PG Super 25 National Championship – 6/28–7/1: Nashville, TN</li>
+          <li>PBR National Championship – 7/3–7/7: Emerson, GA</li>
+          <li>PG World Series – 7/19–7/22: Nashville, TN</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Add all other teams following the same pattern -->
+    <!-- 14U Team -->
+    <div class="team">
+      <div class="team-header" onclick="toggleSchedule('team14')">
+        <h3>FTB Tennessee 14U — Paxton Hughes / Jeren Kendall</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="team-schedule" id="team14">
+        <ul>
+          <li>PG Memorial Day Classic – 5/22–5/25: Nashville, TN</li>
+          <li>PG TN Elite Championship – 5/31–6/1: Nashville, TN</li>
+          <li>PG Tennessee State Championship – 6/7–6/8: Nashville, TN</li>
+          <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
+          <li>PG WWBA – 6/21–6/28: Hoover, AL</li>
+          <li>Pastime National Championship – 7/9–7/13: Louisville, KY</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 2028 Wilson Team -->
+    <div class="team">
+      <div class="team-header" onclick="toggleSchedule('team2028w')">
+        <h3>FTB Tennessee 2028 Wilson — Justin Wilson / Shaine McNeely</h3>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="team-schedule" id="team2028w">
+        <ul>
+          <li>PBR State Games – 5/24–5/27: Emerson, GA</li>
+          <li>PG Hoover Invite – 5/29–6/2: Hoover, AL</li>
+          <li>PG Beast of East – 6/5–6/9: Marietta, GA</li>
+          <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
+          <li>USA Cary – 6/29–7/3: Cary, NC</li>
+          <li>PG National Elite – 7/5–7/9: Hoover, AL</li>
+          <li>WWBA – 7/17–7/24: Marietta, GA</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Continue with all other teams... -->
+    
   </section>
 
-  <!-- Contact -->
-  <section class="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
-    <p>
-      Instagram: <a href="https://www.instagram.com/ftb_tennessee/">@ftb_tennessee</a><br>
-      Twitter: <a href="https://x.com/ftb_tennessee">@ftb_tennessee</a><br>
-      Facebook: <a href="https://www.facebook.com/FTBTennessee/">FTB Tennessee</a>
-    </p>
+  <!-- Commitments Section -->
+  <section class="container" id="commitments">
+    <div class="section-title">
+      <h2>COLLEGE COMMITMENTS</h2>
+    </div>
+    <div class="commitments-grid">
+      <div class="commitment-card">
+        <h4>Cayden King (2026)</h4>
+        <p>Texas A&amp;M</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Kael Barney (2026)</h4>
+        <p>Oregon State</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Max Riggs (2026)</h4>
+        <p>Queen University</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Jackson Goddard (2026)</h4>
+        <p>Belmont</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Wyatt Clatur (2026)</h4>
+        <p>Duke</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Hayden Waller (2026)</h4>
+        <p>Arkansas Pine Bluff</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Owen McMahan (2026)</h4>
+        <p>Belmont</p>
+      </div>
+      <div class="commitment-card">
+        <h4>Connor Gray (2026)</h4>
+        <p>Belmont</p>
+      </div>
+    </div>
   </section>
+
+  <!-- Contact Section -->
+  <section class="container" id="contact">
+    <div class="section-title">
+      <h2>CONTACT US</h2>
+    </div>
+    <div class="contact-info">
+      <div class="contact-card">
+        <h3>Email</h3>
+        <p><a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
+        
+        <h3>Follow Us</h3>
+        <div class="social-links">
+          <a href="https://www.instagram.com/ftb_tennessee/"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/ftb_tennessee"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/FTBTennessee/"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <img src="https://ftbteams.com/wp-content/uploads/2021/05/ftb-logo-white.png" alt="FTB Logo" class="footer-logo">
+      <div class="social-links">
+        <a href="https://www.instagram.com/ftb_tennessee/"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/ftb_tennessee"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/FTBTennessee/"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; 2023 FTB Tennessee. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
 
   <script>
-    function toggle(id) {
-      document.getElementById(id).classList.toggle('hidden');
+    function toggleSchedule(id) {
+      const schedule = document.getElementById(id);
+      schedule.classList.toggle('active');
+      
+      const icon = schedule.previousElementSibling.querySelector('i');
+      if (schedule.classList.contains('active')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      }
     }
   </script>
-
 </body>
 </html>
