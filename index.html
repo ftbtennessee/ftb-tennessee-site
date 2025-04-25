@@ -889,3 +889,272 @@
               </li>
               <li>
                 <span>Jun 5–9</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTB Tennessee - Team Schedules</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #002D72; /* FTB Navy Blue */
+      --secondary: #D50032; /* FTB Red */
+      --accent: #FFC72C; /* FTB Yellow */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+    
+    .teams-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .team-age-group {
+      margin-bottom: 40px;
+    }
+    
+    .age-group-title {
+      background-color: var(--accent);
+      color: var(--primary);
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .team {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    
+    .team:hover {
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    
+    .team h3 {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      margin: 0;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding: 20px;
+      margin: 0;
+    }
+    
+    li {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    li:last-child {
+      border-bottom: none;
+    }
+    
+    .commitments {
+      background-color: var(--primary);
+      color: white;
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+    
+    .commitments h2 {
+      color: white;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 10px;
+    }
+    
+    .contact {
+      background-color: white;
+      padding: 40px 20px;
+      border-radius: 8px;
+      margin-top: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .contact h2 {
+      color: var(--primary);
+      border-bottom: 3px solid var(--secondary);
+      padding-bottom: 10px;
+    }
+    
+    .contact a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contact a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+<section class="container" id="teams">
+  <div class="section-title">
+    <h2>TEAM SCHEDULES</h2>
+  </div>
+  
+  <div class="teams-container">
+    <!-- 2027 Teams -->
+    <div class="team-age-group">
+      <h3 class="age-group-title">2027 Teams</h3>
+      
+      <div class="team">
+        <h3 onclick="toggle('team2027p')">FTB Tennessee 2027 Pettis — Jason Pettis</h3>
+        <ul id="team2027p" class="hidden">
+          <li>PG Beast of East – 6/5–6/9: Marietta, GA</li>
+          <li>PG Summer Showdown – 6/12–6/16: Marietta, GA</li>
+          <li>PG Nat Elite – 6/29–7/3: Hoover, AL</li>
+          <li>WWBA – 7/6–7/13: Atlanta, GA</li>
+          <li>PG World Series – 7/17–7/21: Sanford, FL</li>
+        </ul>
+      </div>
+      
+      <div class="team">
+        <h3 onclick="toggle('team2027g')">FTB Tennessee 2027 Gant — Jason Gant / Derrick Wolfe</h3>
+        <ul id="team2027g" class="hidden">
+          <li>FTB Kick Off – 5/24–5/27: Nashville, TN</li>
+          <li>Music City Summer Slam – 5/29–6/2: Nashville, TN</li>
+          <li>Nashville 2D Opener – 6/5–6/8: Nashville, TN</li>
+          <li>PG Southeast Summer Showdown – 6/12–6/16: Marietta, GA</li>
+          <li>PG Southeast Select – 6/19–6/23: Marietta, GA</li>
+          <li>PBR Nat Champ – 6/26–7/2: Emerson, GA</li>
+          <li>WWBA – 7/6–7/13: Marietta, GA</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 2026 Teams -->
+    <div class="team-age-group">
+      <h3 class="age-group-title">2026 Teams</h3>
+      
+      <div class="team">
+        <h3 onclick="toggle('team2026r')">FTB Tennessee 2026 Reynolds — Alex Reynolds / Max Bartlett</h3>
+        <ul id="team2026r" class="hidden">
+          <li>Music City Summer Slam – 5/29–6/1: Nashville, TN</li>
+          <li>Nashville 2D Opener – 6/5–6/8: Nashville, TN</li>
+          <li>PG Summer Showdown – 6/12–6/16: Atlanta, GA</li>
+          <li>WWBA – 6/25–7/2: Atlanta, GA</li>
+          <li>PG National Elite – 7/12–7/16: Hoover, AL</li>
+          <li>PG BCS National Championship – 7/24–7/28: Fort Myers, FL</li>
+        </ul>
+      </div>
+      
+      <div class="team">
+        <h3 onclick="toggle('team2026h')">FTB Tennessee 2026 Haynie — Will Haynie / Jordan Rogers</h3>
+        <ul id="team2026h" class="hidden">
+          <li>FTB Kick Off Series – 5/24–5/26: Nashville, TN</li>
+          <li>Music City Summer Slam – 5/29–6/1: Nashville, TN</li>
+          <li>PG Beast Of East – 6/5–6/9: Atlanta, GA</li>
+          <li>PG Summer Showdown – 6/12–6/16: Atlanta, GA</li>
+          <li>WWBA – 6/25–7/2: Atlanta, GA</li>
+          <li>PG National Elite – 7/12–7/16: Hoover, AL</li>
+          <li>UBC Midwest – 7/24–7/29: Chicago, IL (Ghost National)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- College Commitments -->
+<section class="container">
+  <div class="commitments">
+    <h2>College Commitments</h2>
+    <ul>
+      <li>Cayden King (2026) – Texas A&amp;M</li>
+      <li>Kael Barney (2026) – Oregon State</li>
+      <li>Max Riggs (2026) – Queen University</li>
+      <li>Jackson Goddard (2026) – Belmont</li>
+      <li>Wyatt Clatur (2026) – Duke</li>
+      <li>Hayden Waller (2026) – Arkansas Pine Bluff</li>
+      <li>Owen McMahan (2026) – Belmont</li>
+      <li>Connor Gray (2026) – Belmont</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="container">
+  <div class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
+    <p>
+      Instagram: <a href="https://www.instagram.com/ftb_tennessee/">@ftb_tennessee</a><br>
+      Twitter: <a href="https://x.com/ftb_tennessee">@ftb_tennessee</a><br>
+      Facebook: <a href="https://www.facebook.com/FTBTennessee/">FTB Tennessee</a>
+    </p>
+  </div>
+</section>
+
+<script>
+function toggle(id) {
+  document.getElementById(id).classList.toggle('hidden');
+}
+</script>
+
+</body>
+</html>
