@@ -19,7 +19,7 @@
     :root {
       --primary: #002D72; /* FTB Navy Blue */
       --secondary: #D50032; /* FTB Red */
-      --accent: #FFC72C; /* FTB Yellow */
+      --accent: #32CD32; /* Lime Green */
       --light: #f8f9fa;
       --dark: #212529;
       --gray: #6c757d;
@@ -87,7 +87,577 @@
     }
     
     .logo-text span {
+      color: var(--primary);
+    }
+    
+    /* Navigation */
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-menu li {
+      margin-left: 25px;
+      position: relative;
+    }
+    
+    .nav-menu li a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    
+    .nav-menu li a:hover {
       color: var(--secondary);
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding: 20px;
+      }
+      
+      .nav-menu.active {
+        display: flex;
+      }
+      
+      .nav-menu li {
+        margin: 10px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+    
+    /* Hero Section */
+    .hero {
+      background-image: linear-gradient(rgba(0,45,114,0.8), rgba(0,45,114,0.8)), url('https://ftbteams.com/wp-content/uploads/2021/05/ftb-hero.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      padding: 120px 0;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin: 0 10px 10px;
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary);
+      color: white;
+      border: 2px solid var(--secondary);
+    }
+    
+    .btn-primary:hover {
+      background-color: transparent;
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-outline:hover {
+      background-color: white;
+      color: var(--primary);
+    }
+    
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+    
+    /* About Section */
+    .about-section {
+      background-color: white;
+      padding: 60px 0;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .about-image {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      loading: lazy;
+    }
+    
+    .about-text h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 28px;
+    }
+    
+    /* Owners Section */
+    .owners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .owner-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .owner-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .owner-image {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .owner-content {
+      padding: 20px;
+    }
+    
+    .owner-content h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 24px;
+    }
+    
+    /* Teams Section */
+    .teams-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .team-age-group {
+      margin-bottom: 40px;
+    }
+    
+    .age-group-title {
+      background-color: var(--accent);
+      color: var(--primary);
+      padding: 10px 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .team {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    
+    .team:hover {
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    
+    .team-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .team-header h3 {
+      margin: 0;
+      font-size: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+    
+    .team-schedule {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .team-schedule.active {
+      padding: 20px;
+      max-height: 1000px;
+    }
+    
+    .team-schedule ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .team-schedule li {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+      .team-schedule li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .team-schedule li .event-location {
+        margin-top: 5px;
+      }
+    }
+    
+    .team-schedule li .event-date {
+      font-weight: bold;
+      color: var(--primary);
+      margin-right: 15px;
+    }
+    
+    .team-schedule li .event-location {
+      color: var(--gray);
+      font-style: italic;
+    }
+    
+    .team-schedule li:last-child {
+      border-bottom: none;
+    }
+    
+    /* Commitments Section */
+    .commitments-section {
+      background-color: var(--primary);
+      color: white;
+      padding: 60px 0;
+    }
+    
+    .commitments-section .section-title h2 {
+      color: white;
+    }
+    
+    .commitments-section .section-title h2:after {
+      background-color: var(--accent);
+    }
+    
+    .commitments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .commitment-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      color: var(--dark);
+    }
+    
+    .commitment-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .commitment-card h4 {
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    
+    .commitment-card p {
+      margin: 0;
+      font-weight: bold;
+      color: var(--secondary);
+    }
+    
+    /* Contact Section */
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .contact-card h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+    
+    .contact-card a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contact-card a:hover {
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      color: var(--primary);
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      height: 60px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-links {
+      margin: 20px 0;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    
+    .copyright {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--secondary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      box Robin: Oh, I see. So you want me to fix the code by removing the 2027 Pettis team, changing the yellow to lime green, and making the "Tennessee" in the logo blue instead of red? Got it. I'll make those changes and send back the full HTML.
+
+Here's what I did:
+1. **Removed the 2027 Pettis Team**: I took out the entire section for the FTB Tennessee 2027 Pettis team from the 2027 (16U) age group, so only the Hendrix and Gant teams remain.
+2. **Changed Yellow to Lime Green**: I updated the `--accent` color from `#FFC72C` (yellow) to `#32CD32` (lime green) in the `:root` CSS variables. This affects the age group titles, the underline in the commitments section, and the hover color for footer links.
+3. **Changed Tennessee to Blue**: I modified the `.logo-text span` CSS to use `--primary` (#002D72, navy blue) instead of `--secondary` (#D50032, red) for the "Tennessee" text in the logo.
+
+I kept all the previous improvements, like the unified JavaScript, accessibility features (ARIA attributes), SEO meta tags, smooth scrolling, and the back-to-top button functionality. The HTML is complete and ready to use.
+
+Here's the updated code:
+
+<xaiArtifact artifact_id="7a81efae-4488-4de4-8510-7a17e646c7eb" artifact_version_id="345cdfe7-a722-4177-8f49-9321cb1c006f" title="index.html" contentType="text/html">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTB Tennessee - Elite Travel Baseball</title>
+  <meta name="description" content="FTB Tennessee provides elite travel baseball opportunities for dedicated players across Tennessee.">
+  <!-- Open Graph and Twitter Card Meta Tags -->
+  <meta property="og:title" content="FTB Tennessee - Elite Travel Baseball">
+  <meta property="og:description" content="FTB Tennessee provides elite travel baseball opportunities for dedicated players across Tennessee.">
+  <meta property="og:image" content="https://ftbteams.com/wp-content/uploads/2021/05/ftb-logo.png">
+  <meta property="og:url" content="https://ftbteams.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #002D72; /* FTB Navy Blue */
+      --secondary: #D50032; /* FTB Red */
+      --accent: #32CD32; /* Lime Green */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    /* Header */
+    .top-bar {
+      background-color: var(--primary);
+      color: white;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    
+    .main-header {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 80px;
+      margin-right: 15px;
+    }
+    
+    .logo-text h1 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 28px;
+    }
+    
+    .logo-text span {
+      color: var(--primary);
     }
     
     /* Navigation */
@@ -786,21 +1356,6 @@
           </div>
         </div>
         <div class="team">
-          <div class="team-header" onclick="toggleSchedule('team2027p')" aria-expanded="false" aria-controls="team2027p">
-            <h3>FTB Tennessee 2027 Pettis — Jason Pettis</h3>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="team-schedule" id="team2027p" role="region">
-            <ul>
-              <li><span class="event-date">Jun 5–9</span><span class="event-location">PG Beast of East – Marietta, GA</span></li>
-              <li><span class="event-date">Jun 12–16</span><span class="event-location">PG Summer Showdown – Marietta, GA</span></li>
-              <li><span class="event-date">Jun 29–Jul 3</span><span class="event-location">PG Nat Elite – Hoover, AL</span></li>
-              <li><span class="event-date">Jul 6–13</span><span class="event-location">WWBA – Atlanta, GA</span></li>
-              <li><span class="event-date">Jul 17–21</span><span class="event-location">PG World Series – Sanford, FL</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="team">
           <div class="team-header" onclick="toggleSchedule('team2027g')" aria-expanded="false" aria-controls="team2027g">
             <h3>FTB Tennessee 2027 Gant — Jason Gant / Derrick Wolfe</h3>
             <i class="fas fa-chevron-down"></i>
@@ -931,7 +1486,7 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="copyright">
-      &copy; 2025 FTB Tennessee. All rights reserved.
+      © 2025 FTB Tennessee. All rights reserved.
     </div>
   </footer>
 
