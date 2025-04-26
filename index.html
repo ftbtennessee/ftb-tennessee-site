@@ -20,18 +20,31 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- AOS Library for Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     :root {
-      --primary: #002D72; /* FTB Navy Blue */
-      --secondary: #D50032; /* FTB Red */
-      --accent: #32CD32; /* Lime Green */
+      --primary: #003087; /* FTB Navy Blue */
+      --secondary: #e63946; /* FTB Red */
+      --accent: #00d4b4; /* Cyan Accent */
       --light: #f8f9fa;
-      --dark: #212529;
+      --dark: #1d3557;
       --gray: #6c757d;
       --section-bg: #f5f5f5;
+      --gradient: linear-gradient(135deg, rgba(0,48,135,0.9), rgba(230,57,70,0.7));
+    }
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --primary: #1d3557;
+      --secondary: #e63946;
+      --light: #2d2d2d;
+      --dark: #f8f9fa;
+      --section-bg: #1a1a1a;
+      --gray: #a8b1c0;
     }
 
     html {
@@ -44,12 +57,14 @@
       color: var(--dark);
       margin: 0;
       padding: 0;
-      background-color: white;
+      background-color: var(--light);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
 
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       margin: 0 0 15px;
     }
@@ -70,7 +85,17 @@
       to { transform: scale(1.05); }
     }
 
-    /* Header */
+    /* Particle Effect for Hero */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* Top Bar */
     .top-bar {
       background-color: var(--primary);
       color: white;
@@ -78,15 +103,19 @@
       font-size: 14px;
       font-weight: 500;
       text-align: center;
+      position: relative;
+      z-index: 1001;
     }
 
+    /* Header */
     .main-header {
-      background-color: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      background-color: var(--light);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
+      transition: background-color 0.3s ease;
     }
 
     .header-container {
@@ -98,14 +127,20 @@
       padding: 0 30px;
     }
 
-    .logo-text h1 {
-      font-size: 36px;
-      color: var(--primary);
-      margin: 0;
+    .logo-container {
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
     }
 
-    .logo-text span {
-      color: var(--primary);
+    .logo-container img {
+      width: 150px;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover img {
+      transform: scale(1.1);
     }
 
     /* Navigation */
@@ -126,13 +161,14 @@
       font-size: 16px;
       padding: 10px 15px;
       border-radius: 5px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     }
 
     .nav-menu li a:hover,
     .nav-menu li a[aria-current="page"] {
       background-color: var(--primary);
       color: white;
+      transform: translateY(-2px);
     }
 
     /* Mobile Menu */
@@ -146,6 +182,21 @@
       padding: 5px 10px;
     }
 
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--dark);
+      cursor: pointer;
+      margin-left: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--secondary);
+    }
+
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
@@ -155,7 +206,7 @@
         right: 0;
         height: 100vh;
         width: 250px;
-        background-color: white;
+        background-color: var(--light);
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         padding: 80px 20px 20px;
         transform: translateX(100%);
@@ -180,26 +231,60 @@
       .mobile-menu-btn {
         display: block;
       }
+
+      .logo-container img {
+        width: 120px;
+      }
     }
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(rgba(0,45,114,0.9), rgba(0,45,114,0.9)), var(--primary);
-      color: white;
-      padding: 200px 0;
-      text-align: center;
       position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
-      font-size: 64px;
+      font-size: 72px;
       margin-bottom: 30px;
       animation: fadeInUp 1s ease forwards;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
     }
 
     .hero p {
       font-size: 24px;
-      font-weight: 400;
+      font-weight: 300;
       max-width: 900px;
       margin: 0 auto 50px;
       animation: fadeInUp 1s ease forwards 0.3s;
@@ -217,6 +302,23 @@
       transition: all 0.3s ease;
       margin: 10px;
       animation: fadeInUp 1s ease forwards 0.6s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: left 0.3s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn-primary {
@@ -226,7 +328,7 @@
     }
 
     .btn-primary:hover {
-      background-color: white;
+      background-color: transparent;
       color: var(--secondary);
       transform: scale(1.05);
     }
@@ -253,7 +355,6 @@
     .section-title {
       text-align: center;
       margin-bottom: 70px;
-      animation: fadeInUp 1s ease forwards;
     }
 
     .section-title h2 {
@@ -276,9 +377,18 @@
       border-radius: 2px;
     }
 
+    /* Parallax Sections */
+    .parallax-section {
+      position: relative;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
     /* About Section */
     .about-section {
-      background-color: white;
+      background-color: var(--light);
       padding: 100px 0;
     }
 
@@ -313,16 +423,38 @@
     }
 
     .owner-card {
-      background: white;
+      background: var(--light);
       border-radius: 15px;
       padding: 30px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .owner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+      transition: height 0.3s ease;
+    }
+
+    .owner-card:hover::before {
+      height: 100%;
     }
 
     .owner-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .owner-content {
+      position: relative;
+      z-index: 1;
     }
 
     .owner-content h3 {
@@ -338,7 +470,7 @@
 
     /* Teams Section */
     .teams-section {
-      background-color: white;
+      background-color: var(--light);
       padding: 100px 0;
     }
 
@@ -360,21 +492,23 @@
       font-size: 28px;
       display: inline-block;
       margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     .team {
-      background: white;
+      background: var(--light);
       border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-      transition: box-shadow 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
     .team:hover {
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      transform: translateY(-5px);
     }
 
     .team-header {
-      background-color: var(--primary);
+      background: var(--gradient);
       color: white;
       padding: 20px 30px;
       border-radius: 15px 15px 0 0;
@@ -386,7 +520,7 @@
     }
 
     .team-header:hover {
-      background-color: #003a8c;
+      background: linear-gradient(135deg, rgba(0,48,135,1), rgba(230,57,70,1));
     }
 
     .team-header h3 {
@@ -431,17 +565,11 @@
       justify-content: space-between;
       align-items: center;
       font-size: 16px;
+      transition: background-color 0.3s ease;
     }
 
-    @media (max-width: 768px) {
-      .team-schedule li {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .team-schedule li .event-location {
-        margin-top: 10px;
-      }
+    .team-schedule li:hover {
+      background-color: var(--section-bg);
     }
 
     .team-schedule li .event-date {
@@ -461,9 +589,26 @@
 
     /* Commitments Section */
     .commitments-section {
-      background-color: var(--primary);
+      background: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop') center/cover fixed;
       color: white;
       padding: 100px 0;
+      position: relative;
+    }
+
+    .commitments-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,48,135,0.9);
+      z-index: 0;
+    }
+
+    .commitments-section .container {
+      position: relative;
+      z-index: 1;
     }
 
     .commitments-section .section-title h2 {
@@ -481,18 +626,36 @@
     }
 
     .commitment-card {
-      background: white;
+      background: var(--light);
       padding: 30px;
       border-radius: 15px;
       text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       color: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .commitment-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      opacity: 0.2;
+      transition: left 0.5s ease;
+    }
+
+    .commitment-card:hover::before {
+      left: 100%;
     }
 
     .commitment-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     }
 
     .commitment-card h4 {
@@ -561,9 +724,10 @@
 
     /* Footer */
     footer {
-      background-color: var(--primary);
+      background: var(--gradient);
       color: white;
       padding: 60px 0;
+      position: relative;
     }
 
     .footer-container {
@@ -619,11 +783,12 @@
     }
 
     /* Back to Top Button */
-    .back-to-top {
+    .back-to-top,
+    .join-now {
       position: fixed;
       bottom: 40px;
       right: 40px;
-      background-color: var(--secondary);
+      background: var(--gradient);
       color: white;
       width: 60px;
       height: 60px;
@@ -631,18 +796,81 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       opacity: 0;
       transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
     }
 
-    .back-to-top.visible {
+    .join-now {
+      bottom: 120px;
+      background: var(--secondary);
+      width: 50px;
+      height: 50px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.2;
+      padding: 5px;
+    }
+
+    .back-to-top.visible,
+    .join-now.visible {
       opacity: 1;
     }
 
-    .back-to-top:hover {
+    .back-to-top:hover,
+    .join-now:hover {
       transform: scale(1.1);
-      background-color: #e6003a;
+      background: linear-gradient(135deg, rgba(0,48,135,1), rgba(230,57,70,1));
+    }
+
+    .join-now:hover {
+      background: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+      }
+
+      .team-schedule li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .team-schedule li .event-location {
+        margin-top: 10px;
+      }
+
+      .commitments-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .btn {
+        padding: 12px 30px;
+      }
     }
   </style>
 </head>
@@ -655,8 +883,8 @@
   <!-- Main Header -->
   <header class="main-header" role="banner">
     <div class="header-container">
-      <div class="logo-text">
-        <h1>FTB <span>TENNESSEE</span></h1>
+      <div class="logo-container">
+        <img src="images/ftb-logo.png" alt="FTB Tennessee Logo" loading="lazy">
       </div>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
@@ -671,17 +899,26 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero" id="home">
-    <div class="container">
-      <h1>FTB Tennessee</h1>
-      <p>Empowering Elite Baseball Players with Top-Tier Training and Competition</p>
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-baseball-player-running-on-a-baseball-field-44366-large.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    <div id="particles-js"></div>
+    <div class="hero-content">
+      <h1 data-aos="fade-up">FTB Tennessee</h1>
+      <p data-aos="fade-up" data-aos-delay="200">Empowering Elite Baseball Players with Top-Tier Training and Competition</p>
       <div>
-        <a href="#teams" class="btn btn-primary">View Teams</a>
-        <a href="#contact" class="btn btn-outline">Join Our Team</a>
+        <a href="#teams" class="btn btn-primary" data-aos="fade-up" data-aos-delay="400">View Teams</a>
+        <a href="#contact" class="btn btn-outline" data-aos="fade-up" data-aos-delay="600">Join Our Team</a>
       </div>
     </div>
   </section>
@@ -689,10 +926,10 @@
   <!-- About Section -->
   <section class="about-section" id="about">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title" data-aos="fade-up">
         <h2>About Us</h2>
       </div>
-      <div class="about-content">
+      <div class="about-content" data-aos="fade-up" data-aos-delay="200">
         <div class="about-text">
           <h3>Our Mission</h3>
           <p>FTB Tennessee is dedicated to developing elite baseball players through discipline, hard work, and competitive excellence. We focus on building character, fostering teamwork, and preparing athletes for long-term success.</p>
@@ -706,17 +943,17 @@
   <!-- Owners Section -->
   <section class="owners-section" id="owners">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title" data-aos="fade-up">
         <h2>Co-Owners</h2>
       </div>
       <div class="owners-grid">
-        <div class="owner-card">
+        <div class="owner-card" data-aos="fade-up" data-aos-delay="200">
           <div class="owner-content">
             <h3>Will Haynie</h3>
             <p>Will Haynie played at the University of Alabama, leading the team with 10 home runs in 2015 and 2016. He earned All-Cape Cod Team honors in the Cape Cod League and was drafted by the Colorado Rockies in 2016. After playing professionally until 2019, Will now coaches athletes at collegiate, professional, and elite high school levels, focusing on hitting, fielding, and sportsmanship.</p>
           </div>
         </div>
-        <div class="owner-card">
+        <div class="owner-card" data-aos="fade-up" data-aos-delay="400">
           <div class="owner-content">
             <h3>Justin Wilson</h3>
             <p>Justin Wilson, from Murfreesboro, TN, played at Volunteer State Community College and Vanderbilt University before pitching in the Yankees organization from 2018 to 2023, finishing in Double-A with a 3.45 ERA. He now brings his pitching expertise to player development at FTB Tennessee.</p>
@@ -729,14 +966,14 @@
   <!-- Teams Section -->
   <section class="teams-section" id="teams">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title" data-aos="fade-up">
         <h2>Team Schedules</h2>
       </div>
       <div class="teams-container">
         <!-- 12U Age Group -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">12U Teams</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team12')" aria-expanded="false" aria-controls="team12" tabindex="0" onkeydown="handleKeydown(event, 'team12')">
               <h3>FTB Tennessee 12U — Ryan Ridler / Derrick Wolfe</h3>
               <i class="fas fa-chevron-down"></i>
@@ -754,9 +991,9 @@
           </div>
         </div>
         <!-- 13U Age Group -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">13U Teams</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team13')" aria-expanded="false" aria-controls="team13" tabindex="0" onkeydown="handleKeydown(event, 'team13')">
               <h3>FTB Tennessee 13U — Marc Coronel</h3>
               <i class="fas fa-chevron-down"></i>
@@ -776,9 +1013,9 @@
           </div>
         </div>
         <!-- 14U Age Group -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">14U Teams</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team14')" aria-expanded="false" aria-controls="team14" tabindex="0" onkeydown="handleKeydown(event, 'team14')">
               <h3>FTB Tennessee 14U — Paxton Hughes / Jeren Kendall</h3>
               <i class="fas fa-chevron-down"></i>
@@ -796,9 +1033,9 @@
           </div>
         </div>
         <!-- 2028 Age Group (15U) -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">2028 Teams (15U)</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team2028w')" aria-expanded="false" aria-controls="team2028w" tabindex="0" onkeydown="handleKeydown(event, 'team2028w')">
               <h3>FTB Tennessee 2028 Wilson — Justin Wilson / Shaine McNeely</h3>
               <i class="fas fa-chevron-down"></i>
@@ -815,7 +1052,7 @@
               </ul>
             </div>
           </div>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="400">
             <div class="team-header" onclick="toggleSchedule('team2028m')" aria-expanded="false" aria-controls="team2028m" tabindex="0" onkeydown="handleKeydown(event, 'team2028m')">
               <h3>FTB Tennessee 2028 Maher — Aaron Maher / Tanner Langley</h3>
               <i class="fas fa-chevron-down"></i>
@@ -834,9 +1071,9 @@
           </div>
         </div>
         <!-- 2027 Age Group (16U) -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">2027 Teams (16U)</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team2027h')" aria-expanded="false" aria-controls="team2027h" tabindex="0" onkeydown="handleKeydown(event, 'team2027h')">
               <h3>FTB Tennessee 2027 Hendrix — Chris Hendrix / Russell Britton</h3>
               <i class="fas fa-chevron-down"></i>
@@ -853,7 +1090,7 @@
               </ul>
             </div>
           </div>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="400">
             <div class="team-header" onclick="toggleSchedule('team2027g')" aria-expanded="false" aria-controls="team2027g" tabindex="0" onkeydown="handleKeydown(event, 'team2027g')">
               <h3>FTB Tennessee 2027 Gant — Jason Gant / Derrick Wolfe</h3>
               <i class="fas fa-chevron-down"></i>
@@ -872,9 +1109,9 @@
           </div>
         </div>
         <!-- 2026 Age Group -->
-        <div class="team-age-group">
+        <div class="team-age-group" data-aos="fade-up">
           <h3 class="age-group-title">2026 Teams</h3>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="200">
             <div class="team-header" onclick="toggleSchedule('team2026r')" aria-expanded="false" aria-controls="team2026r" tabindex="0" onkeydown="handleKeydown(event, 'team2026r')">
               <h3>FTB Tennessee 2026 Reynolds — Alex Reynolds / Max Bartlett</h3>
               <i class="fas fa-chevron-down"></i>
@@ -890,7 +1127,7 @@
               </ul>
             </div>
           </div>
-          <div class="team">
+          <div class="team" data-aos="fade-up" data-aos-delay="400">
             <div class="team-header" onclick="toggleSchedule('team2026h')" aria-expanded="false" aria-controls="team2026h" tabindex="0" onkeydown="handleKeydown(event, 'team2026h')">
               <h3>FTB Tennessee 2026 Haynie — Will Haynie / Jordan Rogers</h3>
               <i class="fas fa-chevron-down"></i>
@@ -913,41 +1150,41 @@
   </section>
 
   <!-- Commitments Section -->
-  <section class="commitments-section" id="commitments">
+  <section class="commitments-section parallax-section" id="commitments">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title" data-aos="fade-up">
         <h2>College Commitments</h2>
       </div>
       <div class="commitments-grid">
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="200">
           <h4>Cayden King (2026)</h4>
           <p>Texas A&M</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="300">
           <h4>Kael Barney (2026)</h4>
           <p>Oregon State</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="400">
           <h4>Max Riggs (2026)</h4>
           <p>Queen University</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="500">
           <h4>Jackson Goddard (2026)</h4>
           <p>Belmont</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="600">
           <h4>Wyatt Clatur (2026)</h4>
           <p>Duke</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="700">
           <h4>Hayden Waller (2026)</h4>
           <p>Arkansas Pine Bluff</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="800">
           <h4>Owen McMahan (2026)</h4>
           <p>Belmont</p>
         </div>
-        <div class="commitment-card">
+        <div class="commitment-card" data-aos="fade-up" data-aos-delay="900">
           <h4>Connor Gray (2026)</h4>
           <p>Belmont</p>
         </div>
@@ -958,10 +1195,10 @@
   <!-- Contact Section -->
   <section class="contact-section" id="contact">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title" data-aos="fade-up">
         <h2>Contact Us</h2>
       </div>
-      <div class="contact-info">
+      <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
         <div class="contact-card">
           <h3>Reach Out</h3>
           <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
@@ -979,12 +1216,12 @@
   <!-- Footer -->
   <footer role="contentinfo">
     <div class="footer-container">
-      <div class="footer-section">
+      <div class="footer-section" data-aos="fade-up">
         <h4>FTB Tennessee</h4>
         <p>Elite Travel Baseball</p>
         <p>Email: <a href="mailto:ftbtennessee@gmail.com">ftbtennessee@gmail.com</a></p>
       </div>
-      <div class="footer-section">
+      <div class="footer-section" data-aos="fade-up" data-aos-delay="200">
         <h4>Quick Links</h4>
         <div class="footer-links">
           <a href="#home">Home</a>
@@ -995,7 +1232,7 @@
           <a href="#contact">Contact</a>
         </div>
       </div>
-      <div class="footer-section footer-social">
+      <div class="footer-section footer-social" data-aos="fade-up" data-aos-delay="400">
         <h4>Follow Us</h4>
         <div class="social-links">
           <a href="https://www.instagram.com/ftb_tennessee/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -1009,12 +1246,127 @@
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
+  <!-- Back to Top and Join Now Buttons -->
+  <a href="#contact" class="join-now" aria-label="Join Now">Join Now</a>
   <a href="#home" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-chevron-up"></i>
   </a>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize Particles.js
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
     // Toggle mobile menu
     function toggleMobileMenu() {
       const navMenu = document.getElementById('navMenu');
@@ -1022,6 +1374,7 @@
       const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
       navMenu.classList.toggle('active');
       menuBtn.setAttribute('aria-expanded', !isExpanded);
+      menuBtn.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
     }
 
     // Toggle team schedule
@@ -1041,17 +1394,46 @@
       }
     }
 
-    // Back to top button visibility
-    window.addEventListener('scroll', () => {
-      const backToTop = document.querySelector('.back-to-top');
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
+    // Dark Mode Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.querySelector('.theme-toggle');
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        body.removeAttribute('data-theme');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'light');
       } else {
-        backToTop.classList.remove('visible');
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load Theme Preference
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      const themeToggle = document.querySelector('.theme-toggle');
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
       }
     });
 
-    // Highlight active nav link on scroll
+    // Back to Top and Join Now Button Visibility
+    window.addEventListener('scroll', () => {
+      const backToTop = document.querySelector('.back-to-top');
+      const joinNow = document.querySelector('.join-now');
+      if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
+        joinNow.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+        joinNow.classList.remove('visible');
+      }
+    });
+
+    // Highlight Active Nav Link on Scroll
     window.addEventListener('scroll', () => {
       const sections = document.querySelectorAll('section[id]');
       const navLinks = document.querySelectorAll('.nav-menu a');
